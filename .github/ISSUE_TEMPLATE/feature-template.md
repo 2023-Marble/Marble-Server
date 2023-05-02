@@ -1,7 +1,7 @@
 ---
 name: Feature Template
 about: 기능 구현 작성 템플릿
-title: '[feat] 구현할 기능 제목'
+title: 'feat: 구현할 기능 제목'
 assignees: ''
 ---
 

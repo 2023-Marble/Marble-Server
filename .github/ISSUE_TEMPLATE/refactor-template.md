@@ -1,7 +1,7 @@
 ---
 name: Refactor Template
 about: 리팩토링할 기능 템플릿
-title: '[refactor] 개선할 기능 제목'
+title: 'refactor: 개선할 기능 제목'
 assignees: ''
 ---
 

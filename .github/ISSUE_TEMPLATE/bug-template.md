@@ -1,7 +1,7 @@
 ---
 name: Bug Template
 about: 버그 템플릿
-title: '[bug] 발생한 버그 제목'
+title: 'bug: 발생한 버그 제목'
 assignees: ''
 ---
 
