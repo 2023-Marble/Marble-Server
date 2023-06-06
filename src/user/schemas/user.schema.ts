@@ -13,7 +13,7 @@ import {
 @Unique(['email'])
 export class User extends BaseEntity {
   @PrimaryGeneratedColumn()
-  user_id: number;
+  userId: number;
 
   @Column()
   name: string;
@@ -24,9 +24,9 @@ export class User extends BaseEntity {
   @Column({ default: 1 })
   mosaic: number;
 
-  @OneToMany((type) => Mosaic, (mosaic) => mosaic.user_id, { eager: true })
+  @OneToMany((type) => Mosaic, (mosaic) => mosaic.userId, { eager: true })
   mosaics: Mosaic[];
 
-  @OneToMany((type) => Image, (image) => image.user_id, { eager: true })
+  @OneToMany((type) => Image, (image) => image.userId, { eager: true })
   images: Image[];
 }

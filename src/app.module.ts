@@ -5,9 +5,16 @@ import { UserController } from './user/user.controller';
 import { MosaicController } from './mosaic/mosaic.controller';
 import { ImageController } from './image/image.controller';
 import { ConfigModule } from '@nestjs/config';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 
 @Module({
-  imports: [ConfigModule.forRoot({ isGlobal: true })],
+  imports: [
+    TypeOrmModule.forRoot({
+      namingStrategy: new SnakeNamingStrategy(),
+    }),
+    ConfigModule.forRoot({ isGlobal: true }),
+  ],
   controllers: [
     AppController,
     UserController,
