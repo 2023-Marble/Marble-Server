@@ -44,7 +44,7 @@ jobs:
           port: ${{ secrets.PORT }}
           script: |
             cd apps/Marble-Server
-            docker system prune -a --volumes -f
-            docker compose pull -q
-            docker compose up --force-recreate --build -d --quiet-pull 2>log.out
+            sudo docker system prune -a --volumes -f
+            sudo docker compose pull -q
+            sudo docker compose up --force-recreate --build -d --quiet-pull 2>log.out
             cat log.out
