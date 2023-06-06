@@ -11,17 +11,17 @@ import {
 @Entity()
 export class Image extends BaseEntity {
   @PrimaryGeneratedColumn()
-  image_id: number;
+  imageId: number;
 
   @Column()
   url: string;
 
   @CreateDateColumn()
-  created_at: Date;
+  createdAt: Date;
 
   @Column('simple-array')
   vector: number[];
 
   @ManyToOne((type) => User, (user) => user.mosaics, { eager: false })
-  user_id: User;
+  userId: User;
 }

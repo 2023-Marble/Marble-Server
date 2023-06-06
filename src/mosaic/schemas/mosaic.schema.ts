@@ -10,7 +10,7 @@ import {
 @Entity()
 export class Mosaic extends BaseEntity {
   @PrimaryGeneratedColumn()
-  mosaic_id: number;
+  mosaicId: number;
 
   @Column()
   type: string;
@@ -19,5 +19,5 @@ export class Mosaic extends BaseEntity {
   url: string;
 
   @ManyToOne((type) => User, (user) => user.mosaics, { eager: false })
-  user_id: User;
+  userId: User;
 }
