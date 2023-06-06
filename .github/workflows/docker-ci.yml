@@ -5,8 +5,6 @@ name: Docker Image CI
 on:
   push:
     branches: ['main']
-  pull_request:
-    branches: ['main']
 
 # jobs
 # 이벤트가 발생하면 해야 할 작업
