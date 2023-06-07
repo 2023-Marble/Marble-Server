@@ -6,14 +6,12 @@ import { MosaicController } from './mosaic/mosaic.controller';
 import { ImageController } from './image/image.controller';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
+import typeORMConfig from './configs/typeorm.config';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      namingStrategy: new SnakeNamingStrategy(),
-    }),
     ConfigModule.forRoot({ isGlobal: true }),
+    TypeOrmModule.forRoot(typeORMConfig),
   ],
   controllers: [
     AppController,
