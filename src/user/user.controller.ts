@@ -1,4 +1,13 @@
-import { Body, Controller, Post, ValidationPipe } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Req,
+  UseGuards,
+  ValidationPipe,
+} from '@nestjs/common';
 import { UserService } from './user.service';
 import { AuthCredentialDto } from './dto/user-credential.dto';
 
@@ -18,5 +27,11 @@ export class UserController {
     @Body(ValidationPipe) authCredentialDto: AuthCredentialDto,
   ): Promise<{ accessToken: string }> {
     return this.userService.signIn(authCredentialDto);
+  }
+
+  @Get()
+  @UseGuards(AuthGuard('jwt'))
+  getUserInfo(@Req() req) {
+    return req.user;
   }
 }
