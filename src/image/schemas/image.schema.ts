@@ -23,5 +23,5 @@ export class Image extends BaseEntity {
   vector: number[];
 
   @ManyToOne((type) => User, (user) => user.mosaics, { eager: false })
-  userId: User;
+  userId: number;
 }
