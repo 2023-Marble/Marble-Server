@@ -19,5 +19,5 @@ export class Mosaic extends BaseEntity {
   url: string;
 
   @ManyToOne((type) => User, (user) => user.mosaics, { eager: false })
-  userId: User;
+  userId: number;
 }
