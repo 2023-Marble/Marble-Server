@@ -48,3 +48,4 @@ jobs:
             sudo docker compose pull -q
             sudo docker compose up --force-recreate --build -d --quiet-pull 2>log.out
             cat log.out
+            sudo docker run --env-file .env -d -p 8080:8080 ${{ secrets.DOCKER_IMAGE_NAME }}:latest
