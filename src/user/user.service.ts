@@ -3,6 +3,7 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserRepository } from './user.repository';
 import { JwtService } from '@nestjs/jwt';
+import { User } from './schemas/user.schema';
 
 @Injectable()
 export class UserService {
@@ -30,5 +31,12 @@ export class UserService {
     } else {
       throw new UnauthorizedException('Login Failed');
     }
+  }
+
+  async updateUserStatus(userId: number, mosaic: number): Promise<User> {
+    const user = await this.userRepository.findOneBy({ userId: userId });
+    user.mosaic = mosaic;
+    await this.userRepository.save(user);
+    return user;
   }
 }
