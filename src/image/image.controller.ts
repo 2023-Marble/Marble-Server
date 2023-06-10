@@ -3,12 +3,16 @@ import { AuthGuard } from '@nestjs/passport';
 import { ImageService } from './image.service';
 import { UploadImageDto } from './dto/upload-image-dto';
 import { Image } from './schemas/image.schema';
+import { ApiTags, ApiOperation, ApiBody } from '@nestjs/swagger';
 
+@ApiTags('image')
 @Controller('image')
 @UseGuards(AuthGuard('jwt'))
 export class ImageController {
   constructor(private imageService: ImageService) {}
 
+  @ApiOperation({ summary: '얼굴 이미지 등록' })
+  @ApiBody({ type: UploadImageDto })
   @Post()
   uploadImage(
     @Body() uploadImageDto: UploadImageDto,

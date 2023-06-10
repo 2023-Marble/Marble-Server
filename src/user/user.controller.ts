@@ -12,11 +12,15 @@ import {
 import { UserService } from './user.service';
 import { AuthCredentialDto } from './dto/user-credential.dto';
 import { User } from './schemas/user.schema';
+import { ApiTags, ApiOperation, ApiBody } from '@nestjs/swagger';
 
+@ApiTags('user')
 @Controller('user')
 export class UserController {
   constructor(private userService: UserService) {}
 
+  @ApiOperation({ summary: '회원가입' })
+  @ApiBody({ type: AuthCredentialDto })
   @Post('/signup')
   signUp(
     @Body(ValidationPipe) authCredentialDto: AuthCredentialDto,
@@ -24,6 +28,8 @@ export class UserController {
     return this.userService.signUp(authCredentialDto);
   }
 
+  @ApiOperation({ summary: '로그인' })
+  @ApiBody({ type: AuthCredentialDto })
   @Post('/signin')
   signIn(
     @Body(ValidationPipe) authCredentialDto: AuthCredentialDto,
@@ -31,12 +37,14 @@ export class UserController {
     return this.userService.signIn(authCredentialDto);
   }
 
+  @ApiOperation({ summary: '회원 정보 조회' })
   @Get()
   @UseGuards(AuthGuard('jwt'))
   getUserInfo(@Req() req) {
     return req.user;
   }
 
+  @ApiOperation({ summary: '회원 정보 수정' })
   @Patch()
   @UseGuards(AuthGuard('jwt'))
   updateUserStatus(@Req() req, @Body('mosaic') mosaic: number): Promise<User> {
