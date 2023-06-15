@@ -1,5 +1,14 @@
 import { AuthGuard } from '@nestjs/passport';
-import { Body, Controller, Post, Req, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Param,
+  ParseIntPipe,
+  Post,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
 import { MosaicService } from './mosaic.service';
 import { UploadMosaicDto } from './dto/upload-mosaic-dto';
 import { Mosaic } from './schemas/mosaic.schema';
@@ -20,5 +29,13 @@ export class MosaicController {
     @Req() req,
   ): Promise<Mosaic> {
     return this.mosaicService.UploadMosaic(uploadMosaicDto, req.user.userId);
+  }
+
+  @ApiOperation({ summary: '커스텀 모자이크 삭제' })
+  @Delete('/:mosaicId')
+  deleteMosaic(
+    @Param('mosaicId', ParseIntPipe) mosaicId: number,
+  ): Promise<void> {
+    return this.mosaicService.deleteMosaic(mosaicId);
   }
 }
