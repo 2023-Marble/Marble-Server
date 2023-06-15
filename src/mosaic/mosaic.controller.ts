@@ -3,10 +3,11 @@ import { Body, Controller, Post, Req, UseGuards } from '@nestjs/common';
 import { MosaicService } from './mosaic.service';
 import { UploadMosaicDto } from './dto/upload-mosaic-dto';
 import { Mosaic } from './schemas/mosaic.schema';
-import { ApiTags, ApiOperation, ApiBody } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiBody, ApiBearerAuth } from '@nestjs/swagger';
 
 @ApiTags('mosaic')
 @Controller('mosaic')
+@ApiBearerAuth('access-token')
 @UseGuards(AuthGuard('jwt'))
 export class MosaicController {
   constructor(private mosaicService: MosaicService) {}

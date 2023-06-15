@@ -12,7 +12,7 @@ import {
 import { UserService } from './user.service';
 import { AuthCredentialDto } from './dto/user-credential.dto';
 import { User } from './schemas/user.schema';
-import { ApiTags, ApiOperation, ApiBody } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiBody, ApiBearerAuth } from '@nestjs/swagger';
 
 @ApiTags('user')
 @Controller('user')
@@ -39,6 +39,7 @@ export class UserController {
 
   @ApiOperation({ summary: '회원 정보 조회' })
   @Get()
+  @ApiBearerAuth('access-token')
   @UseGuards(AuthGuard('jwt'))
   getUserInfo(@Req() req) {
     return req.user;
@@ -46,6 +47,7 @@ export class UserController {
 
   @ApiOperation({ summary: '회원 정보 수정' })
   @Patch()
+  @ApiBearerAuth('access-token')
   @UseGuards(AuthGuard('jwt'))
   updateUserStatus(@Req() req, @Body('mosaic') mosaic: number): Promise<User> {
     return this.userService.updateUserStatus(req.user.userId, mosaic);
