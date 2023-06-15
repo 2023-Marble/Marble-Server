@@ -12,10 +12,11 @@ import { AuthGuard } from '@nestjs/passport';
 import { ImageService } from './image.service';
 import { UploadImageDto } from './dto/upload-image-dto';
 import { Image } from './schemas/image.schema';
-import { ApiTags, ApiOperation, ApiBody } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiBody, ApiBearerAuth } from '@nestjs/swagger';
 
 @ApiTags('image')
 @Controller('image')
+@ApiBearerAuth('access-token')
 @UseGuards(AuthGuard('jwt'))
 export class ImageController {
   constructor(private imageService: ImageService) {}
