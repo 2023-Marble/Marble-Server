@@ -1,4 +1,13 @@
-import { Body, Controller, Post, Req, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Param,
+  ParseIntPipe,
+  Post,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ImageService } from './image.service';
 import { UploadImageDto } from './dto/upload-image-dto';
@@ -19,5 +28,11 @@ export class ImageController {
     @Req() req,
   ): Promise<Image> {
     return this.imageService.UploadImage(uploadImageDto, req.user.userId);
+  }
+
+  @ApiOperation({ summary: '얼굴 이미지 삭제' })
+  @Delete('/:imageId')
+  deleteImage(@Param('imageId', ParseIntPipe) imageId: number): Promise<void> {
+    return this.imageService.deleteImage(imageId);
   }
 }
