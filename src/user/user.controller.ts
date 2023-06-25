@@ -41,7 +41,7 @@ export class UserController {
   @Get()
   @ApiBearerAuth('access-token')
   @UseGuards(AuthGuard('jwt'))
-  getUserInfo(@Req() req) {
+  getUserInfo(@Req() req): Promise<User> {
     return req.user;
   }
 

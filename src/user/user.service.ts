@@ -33,6 +33,15 @@ export class UserService {
     }
   }
 
+  async getUser(email: string): Promise<User> {
+    const user = await this.userRepository.findOneBy({ email: email });
+    if (user) {
+      return user;
+    } else {
+      return null;
+    }
+  }
+
   async updateUserStatus(userId: number, mosaic: number): Promise<User> {
     const user = await this.userRepository.findOneBy({ userId: userId });
     user.mosaic = mosaic;
