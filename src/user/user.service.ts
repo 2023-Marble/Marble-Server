@@ -1,5 +1,9 @@
 import { AuthCredentialDto } from './dto/user-credential.dto';
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserRepository } from './user.repository';
 import { JwtService } from '@nestjs/jwt';
@@ -33,10 +37,26 @@ export class UserService {
     }
   }
 
+  async getUser(email: string): Promise<User> {
+    const user = await this.userRepository.findOneBy({ email: email });
+    if (user) {
+      return user;
+    } else {
+      return null;
+    }
+  }
+
   async updateUserStatus(userId: number, mosaic: number): Promise<User> {
     const user = await this.userRepository.findOneBy({ userId: userId });
     user.mosaic = mosaic;
     await this.userRepository.save(user);
     return user;
+  }
+
+  async deleteUser(userId: number): Promise<void> {
+    const result = await this.userRepository.delete(userId);
+    if (result.affected === 0) {
+      throw new NotFoundException(`Can't find User with id ${userId}`);
+    }
   }
 }

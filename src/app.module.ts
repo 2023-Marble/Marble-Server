@@ -8,6 +8,7 @@ import { Mosaic } from './mosaic/schemas/mosaic.schema';
 import { UserModule } from './user/user.module';
 import { ImageModule } from './image/image.module';
 import { MosaicModule } from './mosaic/mosaic.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { MosaicModule } from './mosaic/mosaic.module';
     UserModule,
     ImageModule,
     MosaicModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

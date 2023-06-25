@@ -2,6 +2,7 @@ import { AuthGuard } from '@nestjs/passport';
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Patch,
   Post,
@@ -41,7 +42,7 @@ export class UserController {
   @Get()
   @ApiBearerAuth('access-token')
   @UseGuards(AuthGuard('jwt'))
-  getUserInfo(@Req() req) {
+  getUserInfo(@Req() req): Promise<User> {
     return req.user;
   }
 
@@ -51,5 +52,13 @@ export class UserController {
   @UseGuards(AuthGuard('jwt'))
   updateUserStatus(@Req() req, @Body('mosaic') mosaic: number): Promise<User> {
     return this.userService.updateUserStatus(req.user.userId, mosaic);
+  }
+
+  @ApiOperation({ summary: '회원 정보 삭제' })
+  @Delete()
+  @ApiBearerAuth('access-token')
+  @UseGuards(AuthGuard('jwt'))
+  deleteUser(@Req() req): Promise<void> {
+    return this.userService.deleteUser(req.user.userId);
   }
 }
