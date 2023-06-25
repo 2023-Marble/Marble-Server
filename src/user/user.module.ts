@@ -6,6 +6,8 @@ import { TypeOrmExModule } from 'src/typeorm-ex.module';
 import { UserRepository } from './user.repository';
 import { UserController } from './user.controller';
 import { JwtStrategy } from './security/jwt.strategy';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { User } from './schemas/user.schema';
 
 @Module({
   imports: [
@@ -17,8 +19,10 @@ import { JwtStrategy } from './security/jwt.strategy';
       },
     }),
     TypeOrmExModule.forCustomRepository([UserRepository]),
+    TypeOrmModule.forFeature([User]),
   ],
   controllers: [UserController],
   providers: [UserService, JwtStrategy],
+  exports: [UserService],
 })
 export class UserModule {}
