@@ -1,5 +1,8 @@
-import { UploadImageDto } from './dto/upload-image-dto';
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ImageRepository } from './image.repository';
 import { Image } from './schemas/image.schema';
@@ -11,8 +14,11 @@ export class ImageService {
     private imageRepository: ImageRepository,
   ) {}
 
-  UploadImage(uploadImageDto: UploadImageDto, userId: number): Promise<Image> {
-    return this.imageRepository.uploadImage(uploadImageDto, userId);
+  uploadImage(file: Express.MulterS3.File, userId: number): Promise<Image> {
+    if (!file) {
+      throw new BadRequestException('파일이 존재하지 않습니다.');
+    }
+    return this.imageRepository.uploadImage(file.location, userId);
   }
 
   async deleteImage(imageId: number): Promise<void> {

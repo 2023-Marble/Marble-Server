@@ -3,9 +3,9 @@ import { ApiProperty } from '@nestjs/swagger';
 
 export class UploadMosaicDto {
   @ApiProperty({
-    example: 'url',
-    description: '사진 URL',
+    type: 'file',
+    description: '사진 파일',
   })
   @IsNotEmpty()
-  url: string;
+  file: Express.MulterS3.File;
 }

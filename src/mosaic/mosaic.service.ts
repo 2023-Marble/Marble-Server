@@ -1,5 +1,8 @@
-import { UploadMosaicDto } from './dto/upload-mosaic-dto';
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { MosaicRepository } from './mosaic.repository';
 import { Mosaic } from './schemas/mosaic.schema';
@@ -11,11 +14,11 @@ export class MosaicService {
     private mosaicRepository: MosaicRepository,
   ) {}
 
-  UploadMosaic(
-    uploadMosaicDto: UploadMosaicDto,
-    userId: number,
-  ): Promise<Mosaic> {
-    return this.mosaicRepository.uploadMosaic(uploadMosaicDto, userId);
+  uploadMosaic(file: Express.MulterS3.File, userId: number): Promise<Mosaic> {
+    if (!file) {
+      throw new BadRequestException('파일이 존재하지 않습니다.');
+    }
+    return this.mosaicRepository.uploadMosaic(file.location, userId);
   }
 
   async deleteMosaic(mosaicId: number): Promise<void> {
