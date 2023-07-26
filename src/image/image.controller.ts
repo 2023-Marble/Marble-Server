@@ -1,18 +1,26 @@
 import {
-  Body,
   Controller,
   Delete,
   Param,
   ParseIntPipe,
   Post,
   Req,
+  UploadedFile,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ImageService } from './image.service';
-import { UploadImageDto } from './dto/upload-image-dto';
 import { Image } from './schemas/image.schema';
-import { ApiTags, ApiOperation, ApiBody, ApiBearerAuth } from '@nestjs/swagger';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiBearerAuth,
+  ApiConsumes,
+  ApiBody,
+} from '@nestjs/swagger';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { UploadImageDto } from './dto/upload-image-dto';
 
 @ApiTags('image')
 @Controller('image')
@@ -22,13 +30,15 @@ export class ImageController {
   constructor(private imageService: ImageService) {}
 
   @ApiOperation({ summary: '얼굴 이미지 등록' })
+  @ApiConsumes('multipart/form-data')
   @ApiBody({ type: UploadImageDto })
+  @UseInterceptors(FileInterceptor('file'))
   @Post()
   uploadImage(
-    @Body() uploadImageDto: UploadImageDto,
+    @UploadedFile() file: Express.MulterS3.File,
     @Req() req,
   ): Promise<Image> {
-    return this.imageService.UploadImage(uploadImageDto, req.user.userId);
+    return this.imageService.uploadImage(file, req.user.userId);
   }
 
   @ApiOperation({ summary: '얼굴 이미지 삭제' })

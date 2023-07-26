@@ -1,18 +1,26 @@
+import { FileInterceptor } from '@nestjs/platform-express';
 import { AuthGuard } from '@nestjs/passport';
 import {
-  Body,
   Controller,
   Delete,
   Param,
   ParseIntPipe,
   Post,
   Req,
+  UploadedFile,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import { MosaicService } from './mosaic.service';
 import { UploadMosaicDto } from './dto/upload-mosaic-dto';
 import { Mosaic } from './schemas/mosaic.schema';
-import { ApiTags, ApiOperation, ApiBody, ApiBearerAuth } from '@nestjs/swagger';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiBody,
+  ApiBearerAuth,
+  ApiConsumes,
+} from '@nestjs/swagger';
 
 @ApiTags('mosaic')
 @Controller('mosaic')
@@ -22,13 +30,15 @@ export class MosaicController {
   constructor(private mosaicService: MosaicService) {}
 
   @ApiOperation({ summary: '커스텀 모자이크 등록' })
+  @ApiConsumes('multipart/form-data')
   @ApiBody({ type: UploadMosaicDto })
+  @UseInterceptors(FileInterceptor('file'))
   @Post()
   uploadMosaic(
-    @Body() uploadMosaicDto: UploadMosaicDto,
+    @UploadedFile() file: Express.MulterS3.File,
     @Req() req,
   ): Promise<Mosaic> {
-    return this.mosaicService.UploadMosaic(uploadMosaicDto, req.user.userId);
+    return this.mosaicService.uploadMosaic(file, req.user.userId);
   }
 
   @ApiOperation({ summary: '커스텀 모자이크 삭제' })
