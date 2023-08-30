@@ -24,6 +24,13 @@ export class ImageService {
     return this.imageRepository.uploadImage(file.location, userId);
   }
 
+  async updateImage(imageId: number, vector: string): Promise<Image> {
+    const image = await this.imageRepository.findOneBy({ imageId: imageId });
+    image.vector = vector;
+    await this.imageRepository.save(image);
+    return image;
+  }
+
   async deleteImage(imageId: number): Promise<void> {
     const s3 = this.s3ClientService.s3();
     const image = await this.imageRepository.findOneBy({ imageId: imageId });

@@ -1,8 +1,10 @@
 import {
+  Body,
   Controller,
   Delete,
   Param,
   ParseIntPipe,
+  Patch,
   Post,
   Req,
   UploadedFile,
@@ -39,6 +41,22 @@ export class ImageController {
     @Req() req,
   ): Promise<Image> {
     return this.imageService.uploadImage(file, req.user.userId);
+  }
+
+  @ApiOperation({ summary: '얼굴 이미지 벡터 정보 수정' })
+  @ApiBody({
+    schema: {
+      properties: {
+        vector: { type: 'string' },
+      },
+    },
+  })
+  @Patch('/:imageId')
+  updateImage(
+    @Param('imageId', ParseIntPipe) imageId: number,
+    @Body('vector') vector: string,
+  ): Promise<Image> {
+    return this.imageService.updateImage(imageId, vector);
   }
 
   @ApiOperation({ summary: '얼굴 이미지 삭제' })
