@@ -19,7 +19,7 @@ export class Image extends BaseEntity {
   @CreateDateColumn()
   createdAt: Date;
 
-  @Column()
+  @Column('longtext')
   vector: string;
 
   @ManyToOne((type) => User, (user) => user.mosaics, { eager: false })
