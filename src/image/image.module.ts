@@ -8,6 +8,7 @@ import { MulterModule } from '@nestjs/platform-express';
 import { multerOptionsFactory } from 'src/configs/multer.options';
 import { S3ClientModule } from 'src/configs/s3Client/s3Client.module';
 import { S3ClientService } from 'src/configs/s3Client/s3Client.service';
+import { HttpModule } from '@nestjs/axios';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { S3ClientService } from 'src/configs/s3Client/s3Client.service';
     TypeOrmExModule.forCustomRepository([ImageRepository]),
     UserModule,
     S3ClientModule,
+    HttpModule,
   ],
   controllers: [ImageController],
   providers: [ImageService],

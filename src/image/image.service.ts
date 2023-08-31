@@ -1,3 +1,4 @@
+import { catchError, firstValueFrom, map } from 'rxjs';
 import {
   BadRequestException,
   Injectable,
@@ -8,6 +9,8 @@ import { ImageRepository } from './image.repository';
 import { Image } from './schemas/image.schema';
 import { S3ClientService } from 'src/configs/s3Client/s3Client.service';
 import { DeleteObjectCommand, S3ServiceException } from '@aws-sdk/client-s3';
+import { HttpService } from '@nestjs/axios';
+import { AxiosError } from 'axios';
 
 @Injectable()
 export class ImageService {
@@ -15,13 +18,33 @@ export class ImageService {
     @InjectRepository(ImageRepository)
     private imageRepository: ImageRepository,
     private s3ClientService: S3ClientService,
+    private httpService: HttpService,
   ) {}
 
-  uploadImage(file: Express.MulterS3.File, userId: number): Promise<Image> {
+  async uploadImage(
+    file: Express.MulterS3.File,
+    userId: number,
+  ): Promise<Image> {
     if (!file) {
       throw new BadRequestException('파일이 존재하지 않습니다.');
     }
-    return this.imageRepository.uploadImage(file.location, userId);
+    const vector = await firstValueFrom(
+      this.httpService
+        .post('https://5c4b92d73cf13da4.ngrok.app/get_feature', {
+          url: file.location,
+        })
+        .pipe(
+          map((response) => response.data.vector),
+          catchError((error: AxiosError) => {
+            throw `ML get_feature Error: ${error}`;
+          }),
+        ),
+    );
+    return this.imageRepository.uploadImage(
+      file.location,
+      userId,
+      JSON.stringify(vector),
+    );
   }
 
   async updateImage(imageId: number, vector: string): Promise<Image> {
