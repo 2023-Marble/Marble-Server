@@ -12,6 +12,7 @@ const typeORMConfig: TypeOrmModuleOptions = {
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
   entities: [__dirname + '/../**/schemas/*.schema.{js,ts}'],
+  autoLoadEntities: true,
   synchronize: true,
   namingStrategy: new SnakeNamingStrategy(),
 };

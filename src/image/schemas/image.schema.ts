@@ -19,8 +19,8 @@ export class Image extends BaseEntity {
   @CreateDateColumn()
   createdAt: Date;
 
-  @Column('simple-array')
-  vector: number[];
+  @Column('longtext')
+  vector: string;
 
   @ManyToOne((type) => User, (user) => user.mosaics, { eager: false })
   userId: number;
