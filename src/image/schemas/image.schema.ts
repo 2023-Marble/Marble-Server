@@ -22,6 +22,6 @@ export class Image extends BaseEntity {
   @Column('longtext')
   vector: string;
 
-  @ManyToOne((type) => User, (user) => user.mosaics, { eager: false })
+  @ManyToOne((type) => User, (user) => user.images, { eager: false })
   userId: number;
 }
