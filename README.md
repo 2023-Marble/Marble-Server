@@ -1,40 +1,41 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+![github-title](https://github.com/2023-Marble/Marble-Server/assets/61882016/767380ee-7428-467a-b960-099e64dca0bd)
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+<br />
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## 🔮 서비스 소개
 
-## Description
+> 다른 사람의 브이로그나 타입랩스에 내 얼굴이 찍혀서 불쾌했던 경험이 있나요?
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+**Marble**은 사전에 등록한 얼굴 이외의 다른 인물을 동영상에서 실시간, 자동으로 모자이크하는 서비스입니다.
 
-## Installation
+Marble의 주요 기능은 다음과 같습니다.
+
+1. 실시간 자동 모자이크
+   - 동영상 촬영 중 실시간으로 얼굴을 인식해 모자이크 처리
+2. 얼굴 사전 등록
+   - 구글 소셜 로그인을 통해 모자이크하지 않을 얼굴 등록
+3. 모자이크 옵션 설정
+   - 기본 (모자이크)
+   - 블러
+   - 표정 마스킹 (웃는 얼굴 or 무표정)
+   - 커스텀 스티커 (사용자가 업로드한 이미지 파일)
+
+## 🔮 아키텍처
+
+![Architecture](https://github.com/2023-Marble/Marble-Server/assets/61882016/842d1e2b-27cb-49c4-ae71-2bf0a6ceb3f8)
+
+## 🔮 서비스 파이프라인
+
+![파이프라인_얼굴등록](https://github.com/2023-Marble/Marble-Server/assets/61882016/fdd37406-c32d-46cd-a65a-31f7522e8d22)
+
+![파이프라인_얼굴detection](https://github.com/2023-Marble/Marble-Server/assets/61882016/a5f92ff6-7ef0-4eef-ba87-d3913aa39614)
+
+## 🔮 Running the app
 
 ```bash
+# installation
 $ npm install
-```
 
-## Running the app
-
-```bash
 # development
 $ npm run start
 
@@ -44,30 +45,3 @@ $ npm run start:dev
 # production mode
 $ npm run start:prod
 ```
-
-## Test
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
